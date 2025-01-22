@@ -1,24 +1,32 @@
 def main():
-    print(file_contents)
-    word_count()
-    character_count()
+    text = book_text("books/frankenstein.txt")
+    word_count(text)
+    dict_report = character_count(text)
+    character_report(dict_report)
 
-def word_count():
-    words = file_contents.split()
+def word_count(text):
+    words = text.split()
     count = len(words)
-    print(f"{count} number of words in document")
+    print(f"{len(words)} number of words in document")
 
-def character_count():
+def character_count(text):
     dict_of_chars = {}
-    lower_file_contents = file_contents.lower()
-    for i in lower_file_contents:
+    lowered_text = text.lower()
+    for i in lowered_text:
         if i in dict_of_chars:
             dict_of_chars[i] += 1
         else:
             dict_of_chars[i] = 1
-    print(dict_of_chars)
-    
-with open("books/frankenstein.txt") as f:
-    file_contents = f.read()
+    return dict_of_chars
+
+def character_report(text):
+    start_chars = text
+    for letter, value in start_chars.items():
+        if letter.isalpha():
+            print(f"The '{letter}' character was found {value} times")
+
+def book_text(path):
+    with open(path) as f:
+        return f.read()
 
 main()
